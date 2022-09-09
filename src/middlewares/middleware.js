@@ -10,7 +10,7 @@ const authentication = async function (req, res, next) {
         
         if (!(decodedtoken)) return res.status(401).send({ status: false, msg: "Bad Request" })
         tokendecoded = decodedtoken.authorId
-        console.log(tokendecoded)
+        //console.log(tokendecoded)
      
         
         next()
@@ -28,13 +28,13 @@ const authorisation = async function (req, res, next) {
         let blogId = req.params.blogId
         authorsId = req.query.authorId
         if(authorsId){
-            if (authorsId !==tokendecoded) { return res.status(403).send({ msg: "NOT AUTHENTICATED " }) }
+            if (authorsId !==tokendecoded) { return res.status(403).send({ msg: "NOT Authorised " }) }
             next()
         }
         else{ let data = await blogModel.findById(blogId)
         let authorid = data.authorId.toString()
-        console.log(authorid)
-        if (authorid !==tokendecoded) { return res.status(403).send({ msg: "NOT AUTHENTICATED " }) }
+        //console.log(authorid)
+        if (authorid !==tokendecoded) { return res.status(403).send({ msg: "NOT Authorised " }) }
         next()}
     }
     catch (err) {

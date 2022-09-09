@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const createAuthor = async function (req, res) {
     try {
         let data = req.body
+        //let {fname} if(!(fname))
         const savedata = await AuthorModel.create(data)
         return res.status(201).send({ msg: "Author created", status: true, data: savedata })
     }
@@ -17,7 +18,8 @@ const loginUser = async function (req, res) {
     try {
       let userName = req.body.email;
       let password = req.body.password;
-      if ((!userName) || (!password)) res.status(400).send({ msg: "BAD REQUEST" })
+      if ((!userName)) res.status(400).send({ msg: "Please provide username" })
+      if((!password)) res.status(400).send({status: false, msg : "Please provide password"})
       let author = await AuthorModel.findOne({ email: userName, password: password });
       if(!author){ res.status(400).send({ msg: "BAD REQUEST" }) }
       let token = jwt.sign(
