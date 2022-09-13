@@ -21,19 +21,20 @@ const blogSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    subcatagory: [String],
+    subcategory:{ type: [String],
+    default: undefined},
     isDeleted: {
         type : Boolean,
         default: false
     },
     deletedAt: {
         type: Date,
-        default: null
+        default: undefined
     },
     isPublished:{type:Boolean, default: false},
     publishedAt: {
         type: Date,
-        default: null
+        default: undefined
     }
 } , {timestamps:true});
 
